@@ -1,0 +1,16 @@
+[
+  {
+    "topic": "book",
+    "rules": [
+      {"comparator": "eq" , "field": "book.name" , "value": "go in action"},
+      {"comparator": "gt" , "field": "book.price" , "value": 23.3}
+    ]
+  },
+  {
+    "topic": "movie",
+    "rules": [
+      {"comparator": "eq" , "field": "book.name" , "value": "Captain Marvel"},
+      {"comparator": "lt" , "field": "book.start" , "value": 3}
+    ]
+  }
+]

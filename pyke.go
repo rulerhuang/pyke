@@ -14,6 +14,8 @@ func main() {
 	router.POST("/rule-update", handlers.RuleUpdate)
 	router.POST("/rule-delete", handlers.RuleDelete)
 
+	router.POST("/rule-match", handlers.RuleMatch)
+
 	err := router.Run(":8000")
 	if nil != err {
 
