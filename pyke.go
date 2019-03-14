@@ -19,15 +19,22 @@ func main() {
 
 	router.GET("/", handlers.Index)
 
-	router.GET("/rule-get", handlers.RuleGet)
-	router.POST("/rule-set", handlers.RuleSet)
-	router.POST("/rule-update", handlers.RuleUpdate)
-	router.POST("/rule-delete", handlers.RuleDelete)
+	manage := router.Group("/manage")
+	{
+		manage.GET("/get", handlers.RuleGet)
+		manage.POST("/set", handlers.RuleSet)
+		manage.POST("/update", handlers.RuleUpdate)
+		manage.POST("/delete", handlers.RuleDelete)
 
-	router.POST("/rule-match", handlers.RuleMatch)
+	}
 
-	uri := fmt.Sprintf("%s:%d", ServerConfig.Host, ServerConfig.Port)
-	err := router.Run(uri)
+	rule := router.Group("/rule")
+	{
+		rule.POST("/match", handlers.RuleMatch)
+	}
+
+	serverUri := fmt.Sprintf("%s:%d", ServerConfig.Host, ServerConfig.Port)
+	err := router.Run(serverUri)
 	if nil != err {
 
 	}

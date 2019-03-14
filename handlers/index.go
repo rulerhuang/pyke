@@ -6,5 +6,5 @@ import (
 )
 
 func Index(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"msg": "hello, pyke!"})
+	c.JSON(http.StatusOK, gin.H{"msg": "hello, pyke is running!"})
 }

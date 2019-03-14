@@ -23,6 +23,6 @@ func Load() {
 	fmt.Printf("%+v\n", c)
 }
 
-func dump() {
+func dump(c *rule.Rule) {
 
 }
