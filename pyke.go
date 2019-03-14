@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"pyke/handlers"
 	"pyke/utils"
@@ -13,7 +14,9 @@ func init() {
 }
 
 func main() {
+	gin.SetMode(ServerConfig.Mode)
 	router := gin.Default()
+
 	router.GET("/", handlers.Index)
 
 	router.GET("/rule-get", handlers.RuleGet)
@@ -23,7 +26,8 @@ func main() {
 
 	router.POST("/rule-match", handlers.RuleMatch)
 
-	err := router.Run(":8000")
+	uri := fmt.Sprintf("%s:%d", ServerConfig.Host, ServerConfig.Port)
+	err := router.Run(uri)
 	if nil != err {
 
 	}

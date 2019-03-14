@@ -6,9 +6,9 @@ import (
 )
 
 type Config struct {
-	Host  string
-	Port  int
-	Debug bool
+	Host string
+	Port int
+	Mode string
 }
 
 func GetConfig(path string) *Config {
