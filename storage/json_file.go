@@ -23,6 +23,14 @@ func Load() {
 	fmt.Printf("%+v\n", c)
 }
 
-func dump(c *rule.Rule) {
+func Save(c *rule.Rule) {
+	jsonByteData, err := json.Marshal(*c)
+	if err != nil {
+		log.Printf("error:%s", err.Error())
+	}
 
+	err = ioutil.WriteFile("./new_debug_rules.json", jsonByteData, 0644)
+	if nil != err {
+		log.Printf("error:%s", err.Error())
+	}
 }

@@ -21,6 +21,7 @@ func RuleSet(c *gin.Context) {
 		log.Printf("error:%s", err.Error())
 	}
 	fmt.Printf("%+v,\n", tr)
+	storage.Save(&tr)
 }
 
 func RuleUpdate(c *gin.Context) {
