@@ -1,14 +1,21 @@
 package main
 
 import (
-	"github.com/julienschmidt/httprouter"
-	"net/http"
+	"github.com/gin-gonic/gin"
 	"pyke/handlers"
 )
 
 func main() {
-	router := httprouter.New()
-	router.GET("/", handlers.IndexHandler)
+	router := gin.Default()
+	router.GET("/", handlers.Index)
 
-	http.ListenAndServe(":8000", router)
+	router.GET("/rule-get", handlers.RuleGet)
+	router.POST("/rule-set", handlers.RuleSet)
+	router.POST("/rule-update", handlers.RuleUpdate)
+	router.POST("/rule-delete", handlers.RuleDelete)
+
+	err := router.Run(":8000")
+	if nil != err {
+
+	}
 }
