@@ -20,5 +20,5 @@ useage:
 ```
 
 ## author
-xuming.js@outllok.com
+xuming.js@outlook.com
 

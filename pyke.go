@@ -3,7 +3,14 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"pyke/handlers"
+	"pyke/utils"
 )
+
+var ServerConfig *utils.Config
+
+func init() {
+	ServerConfig = utils.GetConfig("./pyke_config.toml")
+}
 
 func main() {
 	router := gin.Default()
