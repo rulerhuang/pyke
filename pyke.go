@@ -7,12 +7,6 @@ import (
 	"pyke/handlers"
 )
 
-var ServerConfig *config.Config
-
-func init() {
-	ServerConfig, _ = config.New()
-}
-
 func initRouter(router *gin.Engine) {
 	router.GET("/", handlers.Index)
 
@@ -32,11 +26,11 @@ func initRouter(router *gin.Engine) {
 }
 
 func main() {
-	gin.SetMode(ServerConfig.Mode)
+	gin.SetMode(config.ConfigInstant.Mode)
 	router := gin.Default()
 	initRouter(router)
 
-	serverUri := fmt.Sprintf("%s:%d", ServerConfig.Host, ServerConfig.Port)
+	serverUri := fmt.Sprintf("%s:%d", config.ConfigInstant.Host, config.ConfigInstant.Port)
 	err := router.Run(serverUri)
 	if nil != err {
 

@@ -1,11 +1,12 @@
 package config
 
 import (
+	"fmt"
 	"github.com/BurntSushi/toml"
 	"log"
 )
 
-const CONFIF_PATH = "./pyke_config.toml"
+const DefaultConfigPath = "./pyke_config.toml"
 
 type Config struct {
 	Host string
@@ -13,19 +14,23 @@ type Config struct {
 	Mode string
 }
 
-func getConfig(path string) (*Config, error) {
+// --------- constructor ---------
+
+func New(path string) (*Config, error) {
 	c := Config{}
 	_, err := toml.DecodeFile(path, &c)
 	if nil != err {
 		log.Printf("error:%s", err.Error())
 		return nil, err
 	}
-	log.Printf("config:%+v.\n", c)
 	return &c, nil
 }
 
-// --------- constructor ---------
+// --------- instance ---------
 
-func New() (*Config, error) {
-	return getConfig(CONFIF_PATH)
+var ConfigInstant *Config
+
+func init() {
+	fmt.Println("ConfigInstant init")
+	ConfigInstant, _ = New(DefaultConfigPath)
 }

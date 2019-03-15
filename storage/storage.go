@@ -1,6 +1,9 @@
 package storage
 
-import "pyke/rule"
+import (
+	"fmt"
+	"pyke/rule"
+)
 
 const (
 	JsonMode   = "json_file"
@@ -16,11 +19,11 @@ type Storage interface {
 
 // --------- constructor ---------
 
-func New(tp string, pt string) Storage {
+func New(mode string, filePath string) Storage {
 	var s Storage
-	if JsonMode == tp {
-		s = newJsonFileStorage(pt)
-	} else if BoltDBMode == tp {
+	if JsonMode == mode {
+		s = newJsonFileStorage(filePath)
+	} else if BoltDBMode == mode {
 		s = nil
 	}
 
@@ -33,4 +36,9 @@ func New(tp string, pt string) Storage {
 
 // --------- instance ---------
 
-var RuleStorage = New(JsonMode, DefaultJsonFilePath)
+var RuleStorageInstant Storage
+
+func init() {
+	fmt.Println("RuleStorageInstant init")
+	RuleStorageInstant = New(JsonMode, DefaultJsonFilePath)
+}

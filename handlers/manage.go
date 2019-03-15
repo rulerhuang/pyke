@@ -10,7 +10,7 @@ import (
 )
 
 func RuleLoad(c *gin.Context) {
-	num, err := storage.RuleStorage.Load()
+	num, err := storage.RuleStorageInstant.Load()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"msg": err.Error()})
 		return
