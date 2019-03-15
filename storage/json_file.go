@@ -3,6 +3,7 @@ package storage
 import (
 	"encoding/json"
 	"io/ioutil"
+	"pyke/logger"
 	"pyke/rule"
 	"sync"
 )
@@ -21,12 +22,14 @@ type JsonFileStorage struct {
 func (c *JsonFileStorage) Load() (int, error) {
 	f, err := ioutil.ReadFile(c.Path)
 	if err != nil {
+		logger.PykeError.Println(err)
 		return 0, err
 	}
 
 	r := make([]rule.Rule, 0)
 	err = json.Unmarshal(f, &r)
 	if err != nil {
+		logger.PykeError.Println(err)
 		return 0, err
 	}
 
@@ -60,11 +63,13 @@ func (c *JsonFileStorage) Save() error {
 
 	jsonByteData, err := json.Marshal(c.Rules)
 	if err != nil {
+		logger.PykeError.Println(err)
 		return err
 	}
 
 	err = ioutil.WriteFile(c.Path, jsonByteData, 0644)
 	if nil != err {
+		logger.PykeError.Println(err)
 		return err
 	}
 	return nil

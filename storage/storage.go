@@ -39,7 +39,7 @@ func New(mode string, filePath string) Storage {
 var PykeStorageInstant Storage
 
 func init() {
-	logger.Info.Println("PykeStorageInstant init")
+	logger.PykeInfo.Println("PykeStorageInstant init")
 	PykeStorageInstant = New(JsonMode, DefaultJsonFilePath)
 	// get init rules
 	_, _ = PykeStorageInstant.Load()

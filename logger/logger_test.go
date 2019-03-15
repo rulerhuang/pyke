@@ -5,9 +5,9 @@ import (
 )
 
 func TestInfo(t *testing.T) {
-	Info.Println("TestInfo")
+	PykeInfo.Println("TestInfo")
 }
 
 func TestError(t *testing.T) {
-	Error.Println("TestError")
+	PykeError.Println("TestError")
 }

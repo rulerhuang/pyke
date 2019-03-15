@@ -7,8 +7,8 @@ import (
 )
 
 var (
-	Info  *log.Logger
-	Error *log.Logger
+	PykeInfo  *log.Logger
+	PykeError *log.Logger
 )
 
 const DefaultInfoLogPath = "./info_logs.log"
@@ -25,13 +25,13 @@ func init() {
 		log.Fatalln("failed to open error log:", err)
 	}
 
-	Info = log.New(io.MultiWriter(infoFile, os.Stdout),
-		"Info: ",
+	PykeInfo = log.New(io.MultiWriter(infoFile, os.Stdout),
+		"PykeInfo: ",
 		log.Ldate|log.Ltime|log.Lshortfile)
-	Info.Println("Info logger init")
+	PykeInfo.Println("PykeInfo logger init")
 
-	Error = log.New(io.MultiWriter(errorFile, os.Stdout),
-		"Error: ",
+	PykeError = log.New(io.MultiWriter(errorFile, os.Stdout),
+		"PykeError: ",
 		log.Ldate|log.Ltime|log.Lshortfile)
-	Error.Println("Error logger init")
+	PykeError.Println("PykeError logger init")
 }

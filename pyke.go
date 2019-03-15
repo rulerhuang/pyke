@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"pyke/config"
 	"pyke/handlers"
+	"pyke/logger"
 )
 
 func initRouter(router *gin.Engine) {
@@ -33,6 +34,7 @@ func main() {
 	serverUri := fmt.Sprintf("%s:%d", config.PykeConfigInstant.Host, config.PykeConfigInstant.Port)
 	err := router.Run(serverUri)
 	if nil != err {
-
+		logger.PykeError.Println(err)
 	}
+	logger.PykeInfo.Println("Server running at:", serverUri)
 }

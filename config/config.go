@@ -19,6 +19,7 @@ func New(path string) (*Config, error) {
 	c := Config{}
 	_, err := toml.DecodeFile(path, &c)
 	if nil != err {
+		logger.PykeError.Println(err)
 		return nil, err
 	}
 	return &c, nil
@@ -29,6 +30,6 @@ func New(path string) (*Config, error) {
 var PykeConfigInstant *Config
 
 func init() {
-	logger.Info.Println("PykeConfigInstant init")
+	logger.PykeInfo.Println("PykeConfigInstant init")
 	PykeConfigInstant, _ = New(DefaultConfigPath)
 }
