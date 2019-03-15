@@ -41,10 +41,6 @@ func (c *JsonFileStorage) Load() (int, error) {
 	return len(c.Rules), nil
 }
 
-func (c *JsonFileStorage) Save() error {
-	return nil
-}
-
 func (c *JsonFileStorage) Get() ([]rule.Rule, error) {
 	c.Mutex.RLock()
 	defer c.Mutex.RUnlock()
@@ -60,18 +56,21 @@ func (c *JsonFileStorage) Set(r *rule.Rule) error {
 	return nil
 }
 
-func Save(c *rule.Rule) error {
-	jsonByteData, err := json.Marshal(*c)
+func (c *JsonFileStorage) Save() error {
+	c.Mutex.Lock()
+	defer c.Mutex.Unlock()
+
+	jsonByteData, err := json.Marshal(c.Rules)
 	if err != nil {
-		log.Printf("error:%s", err.Error())
 		return err
 	}
 
-	err = ioutil.WriteFile("./new_debug_rules.json", jsonByteData, 0644)
+	err = ioutil.WriteFile(c.Path, jsonByteData, 0644)
 	if nil != err {
-		log.Printf("error:%s", err.Error())
 		return err
 	}
+	return nil
+
 	return nil
 }
 

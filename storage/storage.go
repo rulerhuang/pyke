@@ -12,9 +12,9 @@ const (
 
 type Storage interface {
 	Load() (int, error)
-	Save() error
 	Get() ([]rule.Rule, error)
 	Set(rule *rule.Rule) error
+	Save() error
 }
 
 // --------- constructor ---------
@@ -42,5 +42,5 @@ func init() {
 	fmt.Println("RuleStorageInstant init")
 	RuleStorageInstant = New(JsonMode, DefaultJsonFilePath)
 	// get init rules
-	RuleStorageInstant.Load()
+	_, _ = RuleStorageInstant.Load()
 }

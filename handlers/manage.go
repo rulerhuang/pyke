@@ -22,6 +22,12 @@ func RuleGet(c *gin.Context) {
 }
 
 func RuleSave(c *gin.Context) {
+	err := storage.RuleStorageInstant.Save()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"msg": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"msg": "RuleSave"})
 
 }
 
