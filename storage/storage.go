@@ -10,6 +10,7 @@ const (
 type Storage interface {
 	Load() (int, error)
 	Save() error
+	Get() ([]rule.Rule, error)
 	Set(rule *rule.Rule) error
 }
 

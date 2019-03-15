@@ -42,6 +42,10 @@ func (c *JsonFileStorage) Save() error {
 	return nil
 }
 
+func (c *JsonFileStorage) Get() ([]rule.Rule, error) {
+	return nil, nil
+}
+
 func (c *JsonFileStorage) Set(r *rule.Rule) error {
 	c.Rules = append(c.Rules, *r)
 	return nil
