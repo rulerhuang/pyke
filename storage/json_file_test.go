@@ -6,7 +6,7 @@ import (
 )
 
 func TestLoad(t *testing.T) {
-	j := newJsonFileStorage("../debug_rules.json")
+	j := newJsonFileStorage("../demo_rules.json")
 	err := j.Load()
 	if err != nil {
 		t.Fatal("load error")

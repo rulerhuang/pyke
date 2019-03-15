@@ -11,8 +11,11 @@ import (
 
 func RuleLoad(c *gin.Context) {
 	num, err := storage.RuleStorage.Load()
-
-	c.JSON(http.StatusOK, gin.H{"msg": "RuleLoad"})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"msg": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"msg": "RuleLoad", "rule": num})
 }
 
 func RuleSave(c *gin.Context) {

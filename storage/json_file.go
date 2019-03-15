@@ -8,7 +8,7 @@ import (
 	"sync"
 )
 
-const DefaultJsonFilePath = "../debug_rules.json"
+const DefaultJsonFilePath = "./demo_rules.json"
 
 type JsonFileStorage struct {
 	Rules []rule.Rule
