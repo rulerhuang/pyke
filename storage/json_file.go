@@ -6,7 +6,28 @@ import (
 	"io/ioutil"
 	"log"
 	"pyke/rule"
+	"sync"
 )
+
+type JsonFileStorage struct {
+	rules []rule.Rule
+	mutex sync.RWMutex
+	count int
+}
+
+// --------- methods ---------
+
+func (c *JsonFileStorage) Set(r *rule.Rule) error {
+	return nil
+}
+
+func (c *JsonFileStorage) Load() error {
+	return nil
+}
+
+func (c *JsonFileStorage) Dump() error {
+	return nil
+}
 
 func Load() error {
 	f, err := ioutil.ReadFile("./debug_rules.json")
@@ -41,6 +62,8 @@ func Save(c *rule.Rule) error {
 	return nil
 }
 
-func Dump() error {
-	return nil
+// --------- constructor ---------
+
+func newJsonFileStorage() *JsonFileStorage {
+	return &JsonFileStorage{make([]rule.Rule, 0), sync.RWMutex{}, 0}
 }

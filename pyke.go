@@ -25,7 +25,6 @@ func main() {
 		manage.POST("/set", handlers.RuleSet)
 		manage.POST("/update", handlers.RuleUpdate)
 		manage.POST("/delete", handlers.RuleDelete)
-
 	}
 
 	rule := router.Group("/rule")
