@@ -3,10 +3,20 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"io"
+	"os"
 	"pyke/config"
 	"pyke/handlers"
 	"pyke/logger"
 )
+
+func initGin() {
+	gin.SetMode(config.PykeConfigInstant.Mode)
+	gin.DisableConsoleColor()
+
+	f, _ := os.Create("./gin.log")
+	gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
+}
 
 func initRouter(router *gin.Engine) {
 	router.GET("/", handlers.Index)
@@ -27,7 +37,8 @@ func initRouter(router *gin.Engine) {
 }
 
 func main() {
-	gin.SetMode(config.PykeConfigInstant.Mode)
+	initGin()
+
 	router := gin.Default()
 	initRouter(router)
 

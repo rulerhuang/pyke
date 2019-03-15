@@ -14,5 +14,6 @@ func Index(c *gin.Context) {
 		config.PykeConfigInstant.Mode
 
 	msg := fmt.Sprintf("hello, pyke is running at %s:%d, at %s mode!", host, port, mode)
+	fmt.Fprintln(gin.DefaultWriter, msg)
 	c.JSON(http.StatusOK, gin.H{"msg": msg})
 }
