@@ -11,8 +11,8 @@ var (
 	Error *log.Logger
 )
 
-const DefaultInfoLogPath = "./info_logs.txt"
-const DefaultErrorLogPath = "./error_logs.txt"
+const DefaultInfoLogPath = "./info_logs.log"
+const DefaultErrorLogPath = "./error_logs.log"
 
 func init() {
 	infoFile, err := os.OpenFile(DefaultInfoLogPath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
@@ -28,8 +28,10 @@ func init() {
 	Info = log.New(io.MultiWriter(infoFile, os.Stdout),
 		"Info: ",
 		log.Ldate|log.Ltime|log.Lshortfile)
+	Info.Println("Info logger init")
 
 	Error = log.New(io.MultiWriter(errorFile, os.Stdout),
 		"Error: ",
 		log.Ldate|log.Ltime|log.Lshortfile)
+	Error.Println("Error logger init")
 }
