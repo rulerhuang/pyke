@@ -3,21 +3,23 @@ package storage
 import "pyke/rule"
 
 const (
-	JSON_MODE   = "json_file"
-	BOLTDB_MODE = "bolt_db"
+	JsonMode   = "json_file"
+	BoltDBMode = "bolt_db"
 )
 
 type Storage interface {
-	Load() error
-	Set(rule *rule.Rule) error
+	Load() (int, error)
 	Save() error
+	Set(rule *rule.Rule) error
 }
 
-func New(tp string) Storage {
+// --------- constructor ---------
+
+func New(tp string, pt string) Storage {
 	var s Storage
-	if JSON_MODE == tp {
-		s = newJsonFileStorage(tp)
-	} else if BOLTDB_MODE == tp {
+	if JsonMode == tp {
+		s = newJsonFileStorage(pt)
+	} else if BoltDBMode == tp {
 		s = nil
 	}
 
@@ -27,3 +29,7 @@ func New(tp string) Storage {
 
 	return s
 }
+
+// --------- instance ---------
+
+var RuleStorage = New(JsonMode, DefaultJsonFilePath)

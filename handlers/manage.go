@@ -9,9 +9,18 @@ import (
 	"pyke/storage"
 )
 
+func RuleLoad(c *gin.Context) {
+	num, err := storage.RuleStorage.Load()
+
+	c.JSON(http.StatusOK, gin.H{"msg": "RuleLoad"})
+}
+
+func RuleSave(c *gin.Context) {
+
+}
+
 func RuleGet(c *gin.Context) {
-	RuleStorage.Load()
-	c.JSON(http.StatusOK, gin.H{"msg": "RuleGet"})
+
 }
 
 func RuleSet(c *gin.Context) {
@@ -22,12 +31,4 @@ func RuleSet(c *gin.Context) {
 	}
 	fmt.Printf("%+v,\n", tr)
 	storage.Save(&tr)
-}
-
-func RuleUpdate(c *gin.Context) {
-
-}
-
-func RuleDelete(c *gin.Context) {
-
 }

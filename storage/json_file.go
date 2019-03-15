@@ -2,14 +2,13 @@ package storage
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"pyke/rule"
 	"sync"
 )
 
-const DEFAULT_JSON_FILE_PATH = "./debug_rules.json"
+const DefaultJsonFilePath = "../debug_rules.json"
 
 type JsonFileStorage struct {
 	Rules []rule.Rule
@@ -20,49 +19,31 @@ type JsonFileStorage struct {
 
 // --------- methods ---------
 
-func (c *JsonFileStorage) Load() error {
+func (c *JsonFileStorage) Load() (int, error) {
 	f, err := ioutil.ReadFile(c.Path)
 	if err != nil {
 		log.Printf("error:%s", err.Error())
-		return err
+		return 0, err
 	}
 
 	r := make([]rule.Rule, 0)
 	err = json.Unmarshal(f, &r)
 	if err != nil {
 		log.Printf("error:%s", err.Error())
-		return err
+		return 0, err
 	}
 
 	c.Rules = r
 	c.Count = len(c.Rules)
-	return nil
-}
-
-func (c *JsonFileStorage) Set(r *rule.Rule) error {
-	c.Rules = append(c.Rules, *r)
-	return nil
+	return len(c.Rules), nil
 }
 
 func (c *JsonFileStorage) Save() error {
 	return nil
 }
 
-func Load() error {
-	f, err := ioutil.ReadFile("./debug_rules.json")
-	if nil != err {
-		log.Printf("error:%s", err.Error())
-		return err
-	}
-
-	c := make([]rule.Rule, 10)
-	err = json.Unmarshal(f, &c)
-	if nil != err {
-		log.Printf("error:%s", err.Error())
-		return err
-	}
-
-	fmt.Printf("%+v\n", c)
+func (c *JsonFileStorage) Set(r *rule.Rule) error {
+	c.Rules = append(c.Rules, *r)
 	return nil
 }
 
@@ -85,7 +66,7 @@ func Save(c *rule.Rule) error {
 
 func newJsonFileStorage(fp string) *JsonFileStorage {
 	if fp == "" {
-		fp = DEFAULT_JSON_FILE_PATH
+		fp = DefaultJsonFilePath
 	}
 
 	return &JsonFileStorage{

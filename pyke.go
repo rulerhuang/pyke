@@ -5,15 +5,12 @@ import (
 	"github.com/gin-gonic/gin"
 	"pyke/config"
 	"pyke/handlers"
-	"pyke/storage"
 )
 
 var ServerConfig *config.Config
-var RuleStorage storage.Storage
 
 func init() {
 	ServerConfig, _ = config.New()
-	RuleStorage = storage.New(storage.JSON_MODE)
 }
 
 func initRouter(router *gin.Engine) {
@@ -21,10 +18,11 @@ func initRouter(router *gin.Engine) {
 
 	manage := router.Group("/manage")
 	{
-		manage.GET("/get", handlers.RuleGet)
+		manage.GET("/load", handlers.RuleLoad)
+		manage.POST("/save", handlers.RuleSave)
+
+		manage.POST("/get", handlers.RuleGet)
 		manage.POST("/set", handlers.RuleSet)
-		manage.POST("/update", handlers.RuleUpdate)
-		manage.POST("/delete", handlers.RuleDelete)
 	}
 
 	rule := router.Group("/rule")
