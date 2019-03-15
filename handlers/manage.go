@@ -10,7 +10,7 @@ import (
 )
 
 func RuleGet(c *gin.Context) {
-	storage.Load()
+	RuleStorage.Load()
 	c.JSON(http.StatusOK, gin.H{"msg": "RuleGet"})
 }
 

@@ -2,6 +2,11 @@ package storage
 
 import "pyke/rule"
 
+const (
+	JSON_MODE   = "json_file"
+	BOLTDB_MODE = "bolt_db"
+)
+
 type Storage interface {
 	Load() error
 	Set(rule *rule.Rule) error
@@ -10,11 +15,13 @@ type Storage interface {
 
 func New(tp string) Storage {
 	var s Storage
-	if "json_file" == tp {
-		s = newJsonFileStorage()
+	if JSON_MODE == tp {
+		s = newJsonFileStorage(tp)
+	} else if BOLTDB_MODE == tp {
+		s = nil
 	}
 
-	if nil == s {
+	if s == nil {
 		panic("load rules failed")
 	}
 

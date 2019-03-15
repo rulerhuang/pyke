@@ -9,19 +9,38 @@ import (
 	"sync"
 )
 
+const DEFAULT_JSON_FILE_PATH = "./debug_rules.json"
+
 type JsonFileStorage struct {
-	rules []rule.Rule
-	mutex sync.RWMutex
-	count int
+	Rules []rule.Rule
+	Mutex sync.RWMutex
+	Path  string
+	Count int
 }
 
 // --------- methods ---------
 
-func (c *JsonFileStorage) Set(r *rule.Rule) error {
+func (c *JsonFileStorage) Load() error {
+	f, err := ioutil.ReadFile(c.Path)
+	if err != nil {
+		log.Printf("error:%s", err.Error())
+		return err
+	}
+
+	r := make([]rule.Rule, 0)
+	err = json.Unmarshal(f, &r)
+	if err != nil {
+		log.Printf("error:%s", err.Error())
+		return err
+	}
+
+	c.Rules = r
+	c.Count = len(c.Rules)
 	return nil
 }
 
-func (c *JsonFileStorage) Load() error {
+func (c *JsonFileStorage) Set(r *rule.Rule) error {
+	c.Rules = append(c.Rules, *r)
 	return nil
 }
 
@@ -64,6 +83,14 @@ func Save(c *rule.Rule) error {
 
 // --------- constructor ---------
 
-func newJsonFileStorage() *JsonFileStorage {
-	return &JsonFileStorage{make([]rule.Rule, 0), sync.RWMutex{}, 0}
+func newJsonFileStorage(fp string) *JsonFileStorage {
+	if fp == "" {
+		fp = DEFAULT_JSON_FILE_PATH
+	}
+
+	return &JsonFileStorage{
+		Rules: make([]rule.Rule, 0),
+		Mutex: sync.RWMutex{},
+		Path:  fp,
+		Count: 0}
 }

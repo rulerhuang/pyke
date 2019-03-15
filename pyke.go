@@ -3,20 +3,20 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"pyke/config"
 	"pyke/handlers"
-	"pyke/utils"
+	"pyke/storage"
 )
 
-var ServerConfig *utils.Config
+var ServerConfig *config.Config
+var RuleStorage storage.Storage
 
 func init() {
-	ServerConfig = utils.GetConfig("./pyke_config.toml")
+	ServerConfig, _ = config.New()
+	RuleStorage = storage.New(storage.JSON_MODE)
 }
 
-func main() {
-	gin.SetMode(ServerConfig.Mode)
-	router := gin.Default()
-
+func initRouter(router *gin.Engine) {
 	router.GET("/", handlers.Index)
 
 	manage := router.Group("/manage")
@@ -31,6 +31,12 @@ func main() {
 	{
 		rule.POST("/match", handlers.RuleMatch)
 	}
+}
+
+func main() {
+	gin.SetMode(ServerConfig.Mode)
+	router := gin.Default()
+	initRouter(router)
 
 	serverUri := fmt.Sprintf("%s:%d", ServerConfig.Host, ServerConfig.Port)
 	err := router.Run(serverUri)
