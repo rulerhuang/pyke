@@ -25,7 +25,7 @@ func (c *JsonFileStorage) Load() error {
 	return nil
 }
 
-func (c *JsonFileStorage) Dump() error {
+func (c *JsonFileStorage) Save() error {
 	return nil
 }
 
