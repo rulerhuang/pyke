@@ -23,7 +23,8 @@ func RuleSave(c *gin.Context) {
 }
 
 func RuleGet(c *gin.Context) {
-
+	d, _ := storage.RuleStorageInstant.Get()
+	c.JSON(http.StatusOK, gin.H{"msg": d})
 }
 
 func RuleSet(c *gin.Context) {

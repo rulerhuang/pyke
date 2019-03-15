@@ -13,9 +13,9 @@ func initRouter(router *gin.Engine) {
 	manage := router.Group("/manage")
 	{
 		manage.GET("/load", handlers.RuleLoad)
-		manage.POST("/save", handlers.RuleSave)
+		manage.GET("/get", handlers.RuleGet)
 
-		manage.POST("/get", handlers.RuleGet)
+		manage.POST("/save", handlers.RuleSave)
 		manage.POST("/set", handlers.RuleSet)
 	}
 

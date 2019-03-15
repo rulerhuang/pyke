@@ -43,7 +43,7 @@ func (c *JsonFileStorage) Save() error {
 }
 
 func (c *JsonFileStorage) Get() ([]rule.Rule, error) {
-	return nil, nil
+	return c.Rules, nil
 }
 
 func (c *JsonFileStorage) Set(r *rule.Rule) error {

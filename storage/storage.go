@@ -41,4 +41,6 @@ var RuleStorageInstant Storage
 func init() {
 	fmt.Println("RuleStorageInstant init")
 	RuleStorageInstant = New(JsonMode, DefaultJsonFilePath)
+	// get init rules
+	RuleStorageInstant.Load()
 }
