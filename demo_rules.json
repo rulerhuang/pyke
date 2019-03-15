@@ -1,7 +1,1 @@
-[
-  {"topic": "book", "operator": "eq" , "field": "book.name" , "value": "go in action"},
-  {"topic": "book", "operator": "gt" , "field": "book.price" , "value": 23.3},
-
-  {"topic": "movie", "operator": "eq" , "field": "book.name" , "value": "Captain Marvel"},
-  {"topic": "movie", "operator": "lt" , "field": "book.start" , "value": 3}
-]
+[{"topic":"book","operator":"eq","field":"book.name","value":"go in action"},{"topic":"book","operator":"gt","field":"book.price","value":23.3},{"topic":"movie","operator":"eq","field":"book.name","value":"Captain Marvel"},{"topic":"movie","operator":"lt","field":"book.start","value":3},{"topic":"qq","operator":"eq","field":"qq.name","value":"ajax"},{"topic":"qq","operator":"gt","field":"qq.age","value":"12"}]
