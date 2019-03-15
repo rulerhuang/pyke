@@ -33,6 +33,9 @@ func (c *JsonFileStorage) Load() (int, error) {
 		return 0, err
 	}
 
+	c.Mutex.Lock()
+	defer c.Mutex.Unlock()
+
 	c.Rules = r
 	c.Count = len(c.Rules)
 	return len(c.Rules), nil
@@ -43,6 +46,9 @@ func (c *JsonFileStorage) Save() error {
 }
 
 func (c *JsonFileStorage) Get() ([]rule.Rule, error) {
+	c.Mutex.RLock()
+	defer c.Mutex.RUnlock()
+
 	return c.Rules, nil
 }
 
