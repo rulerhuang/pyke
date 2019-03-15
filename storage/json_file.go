@@ -53,6 +53,9 @@ func (c *JsonFileStorage) Get() ([]rule.Rule, error) {
 }
 
 func (c *JsonFileStorage) Set(r *rule.Rule) error {
+	c.Mutex.Lock()
+	defer c.Mutex.Unlock()
+
 	c.Rules = append(c.Rules, *r)
 	return nil
 }
