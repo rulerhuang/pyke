@@ -1,9 +1,8 @@
 package config
 
 import (
-	"fmt"
 	"github.com/BurntSushi/toml"
-	"log"
+	"pyke/logger"
 )
 
 const DefaultConfigPath = "./pyke_config.toml"
@@ -20,7 +19,6 @@ func New(path string) (*Config, error) {
 	c := Config{}
 	_, err := toml.DecodeFile(path, &c)
 	if nil != err {
-		log.Printf("error:%s", err.Error())
 		return nil, err
 	}
 	return &c, nil
@@ -28,9 +26,9 @@ func New(path string) (*Config, error) {
 
 // --------- instance ---------
 
-var ConfigInstant *Config
+var PykeConfigInstant *Config
 
 func init() {
-	fmt.Println("ConfigInstant init")
-	ConfigInstant, _ = New(DefaultConfigPath)
+	logger.Info.Println("PykeConfigInstant init")
+	PykeConfigInstant, _ = New(DefaultConfigPath)
 }

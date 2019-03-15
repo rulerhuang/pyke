@@ -1,7 +1,7 @@
 package storage
 
 import (
-	"fmt"
+	"pyke/logger"
 	"pyke/rule"
 )
 
@@ -36,11 +36,11 @@ func New(mode string, filePath string) Storage {
 
 // --------- instance ---------
 
-var RuleStorageInstant Storage
+var PykeStorageInstant Storage
 
 func init() {
-	fmt.Println("RuleStorageInstant init")
-	RuleStorageInstant = New(JsonMode, DefaultJsonFilePath)
+	logger.Info.Println("PykeStorageInstant init")
+	PykeStorageInstant = New(JsonMode, DefaultJsonFilePath)
 	// get init rules
-	_, _ = RuleStorageInstant.Load()
+	_, _ = PykeStorageInstant.Load()
 }

@@ -26,11 +26,11 @@ func initRouter(router *gin.Engine) {
 }
 
 func main() {
-	gin.SetMode(config.ConfigInstant.Mode)
+	gin.SetMode(config.PykeConfigInstant.Mode)
 	router := gin.Default()
 	initRouter(router)
 
-	serverUri := fmt.Sprintf("%s:%d", config.ConfigInstant.Host, config.ConfigInstant.Port)
+	serverUri := fmt.Sprintf("%s:%d", config.PykeConfigInstant.Host, config.PykeConfigInstant.Port)
 	err := router.Run(serverUri)
 	if nil != err {
 

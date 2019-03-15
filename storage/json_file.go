@@ -3,7 +3,6 @@ package storage
 import (
 	"encoding/json"
 	"io/ioutil"
-	"log"
 	"pyke/rule"
 	"sync"
 )
@@ -22,14 +21,12 @@ type JsonFileStorage struct {
 func (c *JsonFileStorage) Load() (int, error) {
 	f, err := ioutil.ReadFile(c.Path)
 	if err != nil {
-		log.Printf("error:%s", err.Error())
 		return 0, err
 	}
 
 	r := make([]rule.Rule, 0)
 	err = json.Unmarshal(f, &r)
 	if err != nil {
-		log.Printf("error:%s", err.Error())
 		return 0, err
 	}
 
@@ -53,6 +50,7 @@ func (c *JsonFileStorage) Set(r *rule.Rule) error {
 	defer c.Mutex.Unlock()
 
 	c.Rules = append(c.Rules, *r)
+	c.Count += 1
 	return nil
 }
 
@@ -69,8 +67,6 @@ func (c *JsonFileStorage) Save() error {
 	if nil != err {
 		return err
 	}
-	return nil
-
 	return nil
 }
 

@@ -8,7 +8,7 @@ import (
 )
 
 func RuleLoad(c *gin.Context) {
-	num, err := storage.RuleStorageInstant.Load()
+	num, err := storage.PykeStorageInstant.Load()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"msg": err.Error()})
 		return
@@ -17,12 +17,12 @@ func RuleLoad(c *gin.Context) {
 }
 
 func RuleGet(c *gin.Context) {
-	d, _ := storage.RuleStorageInstant.Get()
+	d, _ := storage.PykeStorageInstant.Get()
 	c.JSON(http.StatusOK, gin.H{"msg": "RuleGet", "rules": d})
 }
 
 func RuleSave(c *gin.Context) {
-	err := storage.RuleStorageInstant.Save()
+	err := storage.PykeStorageInstant.Save()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"msg": err.Error()})
 		return
@@ -39,7 +39,7 @@ func RuleSet(c *gin.Context) {
 		return
 	}
 
-	err = storage.RuleStorageInstant.Set(&tr)
+	err = storage.PykeStorageInstant.Set(&tr)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"msg": err.Error()})
 		return
